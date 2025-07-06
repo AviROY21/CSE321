@@ -1,0 +1,85 @@
+.MODEL SMALL
+.STACK 100H
+.DATA    
+A DB "?$"   
+B DB "The sum of $"
+c db " and $"
+d DB " IS $"
+.CODE
+MAIN PROC         
+    MOV AX,@DATA
+    MOV DS,AX  
+    
+      
+    LEA DX,A     ;for string
+    MOV AH,9
+    INT 21H
+    
+    MOV AH,1   ;first input
+    INT 21H
+    
+    MOV BL,AL  
+    INT 21H      ;second input. As already wrote Mov ah,1 so thus if i again give the int 21h it will take another input
+                  ;you can also do the same line again it's up to you
+    MOV BH,AL 
+    
+    
+    MOV AH,2
+    MOV DL,0AH 
+    INT 21H      ; new line + cret
+    MOV DL,0DH
+    INT 21H 
+    
+    LEA DX,B
+    MOV AH,9
+    INT 21H 
+    
+    MOV AH,2       ;for output
+    MOV DL,BL
+    INT 21H 
+    
+    LEA DX,C
+    MOV AH,9
+    INT 21H 
+    
+    MOV AH,2
+    MOV DL,BH
+    INT 21H  
+    
+    LEA DX,D
+    MOV AH,9
+    INT 21H    
+    
+    ;adding two number
+    ADD BL,BH   ;let bl=2,bh=5, the ans will be 103(ascii) but for getting the proper output we can add first
+               ;then sub 48 so that  the ans will be  55 and thus we will get 7
+    SUB BL,48
+    MOV AH,2
+    MOV DL, BL
+    INT 21H
+    
+    ;;Substract two number
+    ;you just add 48 here,you can also use 30h. 
+    
+    
+    
+    
+    ;if you want to work with hexa value then simply 30h will be add or substract to get proper value.
+    
+      
+      
+      
+      
+    ;;for multiplication: let a=2,b=3
+    ; a=2=(32h)-30h  b=3=33h-30h 
+     ; perform multiplication . ax=6
+     ; add ax,30h [36h=`6']
+     
+    
+    
+    
+    
+   
+    
+    MAIN ENDP
+END MAIN
